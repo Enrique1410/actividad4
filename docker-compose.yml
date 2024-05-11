@@ -32,7 +32,7 @@ services:
         source: carlemany-backend-data
         target: /var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U ${PSQL_DB_USERNAME}
+      test: pg_isready -d ${PSQL_DB_DATABASE} -U ${PSQL_DB_USERNAME}
       interval: 10s
       timeout: 5s
       retries: 5
@@ -40,6 +40,48 @@ services:
       - "5432:5432"
     networks:
       - carlemany-net
+
+  make_migrations:
+    image: carlemany-backend-base
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: .
+        target: /carlemany-backend
+    networks:
+      - carlemany-net
+    depends_on:
+      - postgres
+    entrypoint: aerich migrate
+
+  migrate:
+    image: carlemany-backend-base
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: .
+        target: /carlemany-backend
+    networks:
+      - carlemany-net
+    depends_on:
+      - postgres
+    entrypoint: aerich upgrade
+
+  init_db:
+    image: carlemany-backend-base
+    env_file:
+      - .env
+    volumes:
+      - type: bind
+        source: .
+        target: /carlemany-backend
+    networks:
+      - carlemany-net
+    depends_on:
+      - postgres
+    entrypoint: sh infra/init_db.sh
 
   black:
     image: carlemany-backend-base:latest

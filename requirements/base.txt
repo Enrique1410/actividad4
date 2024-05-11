@@ -2,3 +2,6 @@ fastapi==0.100.1
 pydantic-settings==2.0.0
 pypdf==4.2.0
 python-multipart==0.0.9
+tortoise-orm>=0.16.21
+aerich>=0.5.8
+asyncpg>=0.24.0
