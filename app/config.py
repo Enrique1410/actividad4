@@ -23,4 +23,4 @@ DATABASE_URL = "postgres://{}:{}@{}:{}/{}".format(
     postgres_settings.database,
 )
 
-models = ["app.books.models", "aerich.models"]
+models = ["app.files.models","app.auth.models", "aerich.models"]

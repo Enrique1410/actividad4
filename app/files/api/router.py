@@ -58,15 +58,15 @@ async def get_file(id: int, token: str = Header(alias="TokenId")) -> File:
 
 
 @router.post("/")
-async def post_files(input_post_file: File, auth_token: str = Header(alias="Auth")) -> dict[str, Union[int, Dict]]:
+async def post_files(input_post_file: File, token: str = Header(alias="Auth")) -> dict[str, Union[int, Dict]]:
 
-    post_files_controller = FilesPostControllers.v1()
+    post_files_controller = FilesPostControllers.v1_create_file()
     file_bo = FileBO(
         name=input_post_file.name,
         description=input_post_file.description,
         content=input_post_file.content,
     )
-    new_id = await post_files_controller(input_post_file=file_bo)
+    new_id = await post_files_controller(token=token,input_post_file=file_bo)
     print("NEW ID: " + str(new_id))
     return {
         "id": new_id

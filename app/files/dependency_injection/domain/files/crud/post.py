@@ -5,7 +5,7 @@ from app.files.domain.controllers.files.crud.post import PostFileDomain
 
 
 class FilesPostControllers(containers.DeclarativeContainer):
-    v1 = providers.Singleton(
+    v1_create_file = providers.Singleton(
         PostFileDomain,
         file_persistence_service=FileBOPersistences.carlemany(),
     )

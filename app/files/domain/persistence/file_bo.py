@@ -15,7 +15,7 @@ class FileBOPersistenceInterface(ABC):
         pass
 
     @abstractmethod
-    async def get_files_by_token(self, token_id: str) -> List[FileBO]:
+    async def get_files_by_user_id(self, user_id: int) -> List[FileBO]:
         pass
 
     @abstractmethod

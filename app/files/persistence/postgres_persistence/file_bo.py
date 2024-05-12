@@ -19,7 +19,7 @@ class FileBOPostgresPersistenceService(FileBOPersistenceInterface):
         file.id = new_file.id
         return file.id
 
-    async def get_file(self, file_id: int) -> FileBO:
+    async def get_file(self, file_id: int,) -> FileBO:
         file = await File.get(
             id=file_id
         )
@@ -30,15 +30,14 @@ class FileBOPostgresPersistenceService(FileBOPersistenceInterface):
             content=file.content,
         )
     
-    async def get_files_by_token(self, token_id: str) -> List[FileBO]:
-        files = await File.filter(token_id=token_id).all()
+    async def get_files_by_user_id(self, user_id: int) -> List[FileBO]:
+        files = await File.filter(user_id=user_id).all()
         return [
         FileBO(
             id=file.id,
             name=file.name,
             description=file.description,
-            content=file.content,
-            token_id=file.token_id
+            content=file.content
         ) for file in files
     ]
 

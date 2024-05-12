@@ -1,25 +1,25 @@
 from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
 
-from app.files.api.router import router as test_router
-from app.auth.router import router as test2_router
+from app.files.api.router import router as files_router
+from app.auth.api.router import router as auth_router
 from app.config import DATABASE_URL, models
 
 
 tags_metadata = [
     {
-        "name": "test1",
-        "description": "desc test1"
+        "name": "files",
+        "description": "desc files"
     },
     {
         "name": "auth",
-        "description": "desc test1"
+        "description": "desc auth"
     }
 ]
 
 app = FastAPI(
-    title="3d videoconference",
-    description="Some description here",
+    title="3d activity",
+    description="Activity by Ernesto Casas Royo",
     tags_metadata=tags_metadata
 )
 
@@ -27,8 +27,8 @@ app = FastAPI(
 async def healthcheck() -> dict[str, str]:
     return {"status": "ok"}
 
-app.include_router(test_router, prefix="/books", tags=["books"])
-app.include_router(test2_router, prefix="/auth", tags=["auth"])
+app.include_router(files_router, prefix="/files", tags=["files"])
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
 
 register_tortoise(
     app,
