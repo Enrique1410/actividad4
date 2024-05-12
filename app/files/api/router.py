@@ -15,7 +15,7 @@ router = APIRouter()
 
 files = {}
 
-class FileData(BaseModel):
+class File(BaseModel):
     id: Optional[int] = None
     name: str
     description: Optional[str] = None
