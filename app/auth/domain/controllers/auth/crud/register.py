@@ -1,3 +1,4 @@
+import base64
 from app.auth.domain.bo.user_bo import UserBO
 from app.auth.domain.persistence.auth_bo import AuthBOPersistenceInterface
 from hashlib import sha256
@@ -8,10 +9,10 @@ class RegisterUser:
         self.auth_persistence_service = auth_persistence_service
 
     async def __call__(self, user: UserBO):
-        if await self.auth_persistence_service.exists(user.username):
-            raise ValueError("User already exists")
+       
 
         hashed_password = sha256((user.username + user.password).encode()).digest()
-        user.password = hashed_password
-        await self.user_repository.save(user)
-        return user
+        base64_encoded_password = base64.b64encode(hashed_password).decode('utf-8')
+        user.password = base64_encoded_password
+        saved_user = await self.auth_persistence_service.create_user(user)
+        return saved_user

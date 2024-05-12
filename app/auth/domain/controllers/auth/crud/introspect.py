@@ -1,4 +1,4 @@
-from http.client import HTTPException
+from fastapi import HTTPException
 from app.auth.domain.persistence.auth_bo import AuthBOPersistenceInterface
 
 
