@@ -13,8 +13,7 @@ class FileBOPostgresPersistenceService(FileBOPersistenceInterface):
         new_file = await File.create(
             name=file.name,
             description=file.description,
-            content=file.content,
-            description=None,
+            content=file.content
         )
         file.id = new_file.id
         return file.id

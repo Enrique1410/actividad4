@@ -6,7 +6,7 @@ COPY requirements/base.txt /tmp/requirements/
 
 RUN pip install -r /tmp/requirements/base.txt
 
-RUN mkdir /backend-backend
+RUN mkdir /carlemany-backend
 
 WORKDIR /carlemany-backend
 

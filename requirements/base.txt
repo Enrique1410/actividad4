@@ -5,3 +5,4 @@ python-multipart==0.0.9
 tortoise-orm>=0.16.21
 aerich>=0.5.8
 asyncpg>=0.24.0
+dependency_injector>=4.0
