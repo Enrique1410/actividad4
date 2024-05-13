@@ -51,10 +51,11 @@ class FileBOPostgresPersistenceService(FileBOPersistenceInterface):
     async def delete_file(self, file_id: int):
         try:
             file = await File.get(id=file_id)
+            file_info = f"id {file_id}, Name {file.name}"
             await file.delete()
-            return {"status": "success", "message": "File successfully deleted"}
+            return {"status": "success", "message": f"File {file_info} successfully deleted"}
         except DoesNotExist:
-            return {"status": "error", "message": "File not found"}
+            return {"status": "error", "message": f"File {file_info} not found"}
     
     async def update_file_content(self, file_id: int, token_id: str, new_content: str):
         try:

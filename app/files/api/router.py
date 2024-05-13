@@ -136,8 +136,6 @@ async def post_files(id: int, any_name: str = Header(alias="AnyName"), input_pos
 
 @router.delete("/{id}")
 async def delete_file(file_id: int):
-    try:
-        file_deleted =  await DeleteFileByFileIdController
-        return {"status": "success", "message": "File" + file_deleted + "deleted successfully"}
-    except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+    file_delete =  DeleteFileByFileIdController.v1_get_by_token()
+    deleted_file = await file_delete(file_id)
+    return {"status": "success", "message": deleted_file["message"]}
