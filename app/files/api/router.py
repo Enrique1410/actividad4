@@ -20,6 +20,7 @@ class File(BaseModel):
     name: str
     description: Optional[str] = None
     content: Optional[str] = None
+    user_id: Optional[int] = None
 
     model_config = {
         "json_schema_extra" :  {
@@ -39,26 +40,27 @@ class File(BaseModel):
     }
 
 @router.get("/")
-async def get_files_by_token(token: str = Header(alias="TokenId")) -> List[File]:
+async def get_files_by_token(token: str = Header(alias="user_token")) -> List[File]:
     get_files_controller = FilesGetByTokenControllers.v1_get_by_token()
     files_list = await get_files_controller(token_id=token)
     return files_list
 
 
 @router.get("/{id}")
-async def get_file(id: int, token: str = Header(alias="TokenId")) -> File:
+async def get_file(id: int, token: str = Header(alias="user_token")) -> File:
     get_files_controller = FilesGetControllers.v1()
-    file_bo = await get_files_controller(input_file_id=id)
+    file_bo = await get_files_controller(input_file_id=id, token=token)
     return File(
         id=file_bo.id,
         name=file_bo.name,
         description=file_bo.description,
-        content=file_bo.content
+        content=file_bo.content,
+        user_id=file_bo.user_id
     )
 
 
 @router.post("/")
-async def post_files(input_post_file: File, token: str = Header(alias="Auth")) -> dict[str, Union[int, Dict]]:
+async def post_files(input_post_file: File, token: str = Header(alias="user_token")) -> File:
 
     post_files_controller = FilesPostControllers.v1_create_file()
     file_bo = FileBO(
@@ -66,11 +68,15 @@ async def post_files(input_post_file: File, token: str = Header(alias="Auth")) -
         description=input_post_file.description,
         content=input_post_file.content,
     )
-    new_id = await post_files_controller(token=token,input_post_file=file_bo)
-    print("NEW ID: " + str(new_id))
-    return {
-        "id": new_id
-    }
+    file_to_return = await post_files_controller(token=token,input_post_file=file_bo)
+    return  File(
+        id=file_to_return.id,
+        name=file_to_return.name,
+        description=file_to_return.description,
+        content=file_to_return.content,
+        user_id=file_to_return.user_id
+    )
+    
 
 
 @router.post("/merge")

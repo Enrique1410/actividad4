@@ -23,4 +23,5 @@ class FileBOMemoryPersistenceService(FileBOPersistenceInterface):
                 name=file_to_return.name,
                 description=file_to_return.description,
                 content=file_to_return.content,
+                user_id=file_to_return.user_id
             )

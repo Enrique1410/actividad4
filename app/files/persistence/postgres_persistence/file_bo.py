@@ -13,10 +13,18 @@ class FileBOPostgresPersistenceService(FileBOPersistenceInterface):
         new_file = await File.create(
             name=file.name,
             description=file.description,
-            content=file.content
+            content=file.content,
+            user_id=file.user_id
         )
         file.id = new_file.id
-        return file.id
+    
+        return FileBO(
+            id=file.id,
+            name=file.name,
+            description=file.description,
+            content=file.content,
+            user_id=file.user_id
+        )
 
     async def get_file(self, file_id: int,) -> FileBO:
         file = await File.get(
