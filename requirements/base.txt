@@ -8,4 +8,5 @@ tortoise-orm==0.19.3
 aerich==0.6.3
 asyncpg==0.28.0
 dependency_injector==4.41.0
-
+redis==5.0.4
+minio==7.2.7
