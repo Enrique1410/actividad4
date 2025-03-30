@@ -23,7 +23,7 @@ class LoginUser:
         new_token = secrets.token_hex(16)
         success = await self.auth_persistence_service.update_user_auth_token(user_bo.id, new_token)
         if success:
-            return {"message": "Login successful", "token": new_token}
+            return {"message": "You have logged in successfully", "token": new_token}
         else:
             raise HTTPException(status_code=500, detail="Failed to update user token")
 

@@ -1,4 +1,4 @@
-# Cloud computing
+# Cloud computing Subject
 In order to run the project, execute the following command line instruction:
 
 ```

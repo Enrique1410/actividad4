@@ -19,15 +19,15 @@ class User(BaseModel):
         "json_schema_extra" :  {
             "examples": [
                 {
-                    "username": "johndoe",
-                    "email": "johndoe@johndoe.com",
-                    "password": "johndoe",
+                    "username": "test",
+                    "email": "test@test.com",
+                    "password": "test",
 
                 },
                 {
-                   "username": "janesmith",
-                    "email": "janesmith@janesmith.com",
-                    "password": "janesmith",
+                   "username": "miguel",
+                    "email": "miguel@carlemany.com",
+                    "password": "carlemany",
                 }
             ]
         }
@@ -42,7 +42,7 @@ async def register(user: User):
     )
     create_user_controller = RegisterUserControllers.v1_create_user()
     registered_user = await create_user_controller(user_bo)
-    return {"message": "User registered successfully", "username": registered_user.username}
+    return {"message": "The user has been successfully signed up.", "username": registered_user.username}
 
 
 @router.post("/login")

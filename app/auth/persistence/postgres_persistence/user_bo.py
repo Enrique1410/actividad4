@@ -10,15 +10,15 @@ class AuthBOPostgresPersistenceService(AuthBOPersistenceInterface):
 
     @transactions.atomic()
     async def create_user(self, user: UserBO):
-        print(f"Creating new User with username: {user.username}")  # Debugging
+        print(f"Generating a new user with the chosen username: {user.username}")  # Debugging
         new_user = await User.create(
             username=user.username,
             email=user.email,
             password=user.password,
         )
-        print(f"New User created with ID: {new_user.id}")  # Debugging
+        print(f"A new user has been successfully created with the assigned ID.: {new_user.id}")  # Debugging
         user.id = new_user.id
-        print(f"UserBO ID set to: {user.id}")  # Debugging
+        print(f"UserBO ID: {user.id}")  
         return user
     
     

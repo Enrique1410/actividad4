@@ -18,8 +18,8 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title="3d activity",
-    description="Activity by Ernesto Casas Royo",
+    title="Actividad III Grupo 7",
+    description="Actividad III Grupo 7",
     tags_metadata=tags_metadata
 )
 

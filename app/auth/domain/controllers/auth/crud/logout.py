@@ -8,6 +8,6 @@ class LogoutUser:
 
     async def __call__(self, token: str):
         if await self.auth_persistence_service.invalidate_user_token(token):
-            return {"message": "Logout successful"}
+            return {"message": "You have logout successful"}
         else:
             raise HTTPException(status_code=404, detail="User not found")

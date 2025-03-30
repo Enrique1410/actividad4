@@ -116,24 +116,6 @@ async def post_files(id: int, any_name: str = Header(alias="AnyName"), input_pos
     files[id] = input_post_files
     return {}
 
-
-#@router.post("/content/{id}")
-#async def post_files(id: int, input_post_files: UploadFile = File()) -> dict[str, Union[int, Dict]]:
-#    filename = "test"
-#    prefix = "files/"
-#    with open(prefix + filename, "wb") as buffer:
-#       while chunk := await input_post_files.read(8192):
-#           buffer.write(chunk)
-#
-#    if id not in files:
-#        raise HTTPException(
-#            status_code=411,
-#            detail="This file is not in the database"
-#        )
-#    files[id] = input_post_files
-#    return {}
-
-
 @router.delete("/{id}")
 async def delete_file(file_id: int):
     file_delete =  DeleteFileByFileIdController.v1_get_by_token()
